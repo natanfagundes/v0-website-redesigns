@@ -1,77 +1,197 @@
-export function Contact() {
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState(false);
+"use client"
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const formData = new FormData(event.target);
+import type React from "react"
+
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import { Mail, Phone, MapPin } from "lucide-react"
+import { SectionBackground } from "@/components/section-background"
+import { useState } from "react"
+
+export function Contact() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: "success" | "error" | null
+    message: string
+  }>({ type: null, message: "" })
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.id]: e.target.value,
+    }))
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setSubmitStatus({ type: null, message: "" })
+
     try {
-      const response = await fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(formData).toString(),
-      });
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const data = await response.json()
+
       if (response.ok) {
-        setSuccess(true);
-        event.target.reset();
+        setSubmitStatus({
+          type: "success",
+          message: data.message,
+        })
+        // Limpar formulário
+        setFormData({
+          name: "",
+          email: "",
+          subject: "",
+          message: "",
+        })
       } else {
-        throw new Error('Erro no envio');
+        setSubmitStatus({
+          type: "error",
+          message: data.error || "Erro ao enviar mensagem",
+        })
       }
-    } catch (err) {
-      setError(true);
-      console.error(err);
+    } catch (error) {
+      setSubmitStatus({
+        type: "error",
+        message: "Erro ao enviar mensagem. Tente novamente.",
+      })
+    } finally {
+      setIsSubmitting(false)
     }
-  };
+  }
 
   return (
-    <section id="contact" className="py-6 sm:py-12 md:py-24 bg-background dark:bg-background">
-      <div className="container px-4 mx-auto max-w-7xl">
-        <div className="max-w-6xl mx-auto text-center mb-6 sm:mb-8 md:mb-16">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-bold text-foreground dark:text-foreground">Vamos Conversar?</h2>
-          <p className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Estamos prontos para transformar suas ideias em resultados concretos</p>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-          <div className="space-y-4 p-2 sm:p-4">
-            <div className="flex items-start gap-3">
-              <div className="w-8 h-8 bg-primary/10 flex items-center justify-center">
-                <Mail className="w-4 h-4 text-primary" />
-              </div>
-              <div>
-                <h3 className="font-semibold text-sm text-foreground dark:text-foreground">Email</h3>
-                <p className="text-gray-600 dark:text-gray-300 text-xs">contato@ferreiracosseau.com</p>
-              </div>
-            </div>
-            {/* Repita pra Phone e MapPin com mesmo padrão */}
+    <section id="contact" className="py-24 md:py-32 relative overflow-hidden">
+      <SectionBackground variant="dark" />
+
+      <div className="container px-4 mx-auto max-w-7xl relative z-10">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16 space-y-4">
+            <h2 className="text-4xl md:text-6xl font-serif font-bold text-balance">Vamos Conversar?</h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto text-pretty">
+              Estamos prontos para transformar suas ideias em resultados concretos
+            </p>
           </div>
-          <form name="contact" method="post" onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
-            <input type="hidden" name="form-name" value="contact" />
-            <div style={{ position: 'absolute', left: '-5000px' }} aria-hidden="true">
-              <label><input name="bot-field" /></label>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
-              <div className="space-y-2">
-                <label htmlFor="name" className="text-sm text-foreground dark:text-foreground">Nome</label>
-                <Input id="name" name="name" placeholder="Seu nome" className="w-full" />
+
+          <div className="grid md:grid-cols-2 gap-12">
+            {/* Contact Info */}
+            <div className="space-y-8">
+              <div className="space-y-6">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <Mail className="w-6 h-6 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold mb-1">Email</h3>
+                    <p className="text-muted-foreground">contato@ferreiracosseau.com</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <Phone className="w-6 h-6 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold mb-1">Telefone</h3>
+                    <p className="text-muted-foreground">+55 (11) 9999-9999</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <MapPin className="w-6 h-6 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold mb-1">Localização</h3>
+                    <p className="text-muted-foreground">São Paulo, Brasil</p>
+                  </div>
+                </div>
               </div>
-              <div className="space-y-2">
-                <label htmlFor="email" className="text-sm text-foreground dark:text-foreground">Email</label>
-                <Input id="email" name="email" type="email" placeholder="seu@email.com" className="w-full" />
+            </div>
+
+            {/* Contact Form */}
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid sm:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <label htmlFor="name" className="text-sm font-medium">
+                    Nome
+                  </label>
+                  <Input id="name" placeholder="Seu nome" value={formData.name} onChange={handleChange} required />
+                </div>
+                <div className="space-y-2">
+                  <label htmlFor="email" className="text-sm font-medium">
+                    Email
+                  </label>
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="seu@email.com"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
               </div>
-            </div>
-            <div className="space-y-2">
-              <label htmlFor="subject" className="text-sm text-foreground dark:text-foreground">Assunto</label>
-              <Input id="subject" name="subject" placeholder="Como podemos ajudar?" className="w-full" />
-            </div>
-            <div className="space-y-2">
-              <label htmlFor="message" className="text-sm text-foreground dark:text-foreground">Mensagem</label>
-              <Textarea id="message" name="message" placeholder="Conte-nos mais..." rows={4} className="w-full" />
-            </div>
-            <Button type="submit" size="lg" className="w-full bg-primary text-white hover:bg-primary/90">Enviar Mensagem</Button>
-            {success && <p className="text-green-500 dark:text-green-400">Mensagem enviada com sucesso!</p>}
-            {error && <p className="text-red-500 dark:text-red-400">Erro ao enviar. Tente novamente.</p>}
-          </form>
+
+              <div className="space-y-2">
+                <label htmlFor="subject" className="text-sm font-medium">
+                  Assunto
+                </label>
+                <Input
+                  id="subject"
+                  placeholder="Como podemos ajudar?"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label htmlFor="message" className="text-sm font-medium">
+                  Mensagem
+                </label>
+                <Textarea
+                  id="message"
+                  placeholder="Conte-nos mais sobre seu projeto..."
+                  rows={6}
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              {submitStatus.type && (
+                <div
+                  className={`p-4 rounded-lg ${
+                    submitStatus.type === "success"
+                      ? "bg-green-500/10 text-green-500 border border-green-500/20"
+                      : "bg-red-500/10 text-red-500 border border-red-500/20"
+                  }`}
+                >
+                  {submitStatus.message}
+                </div>
+              )}
+
+              <Button type="submit" size="lg" className="w-full bg-primary hover:bg-primary/90" disabled={isSubmitting}>
+                {isSubmitting ? "Enviando..." : "Enviar Mensagem"}
+              </Button>
+            </form>
+          </div>
         </div>
       </div>
     </section>
-  );
+  )
 }
