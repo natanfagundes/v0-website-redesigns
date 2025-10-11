@@ -6,6 +6,7 @@ import { About } from "@/components/about"
 import { CTASection } from "@/components/cta-section"
 import { Contact } from "@/components/contact"
 import { Footer } from "@/components/footer"
+import { WhatsAppButton } from "@/components/whatsapp-button"
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
       <CTASection />
       <Contact />
       <Footer />
+      <WhatsAppButton />
     </main>
   )
 }

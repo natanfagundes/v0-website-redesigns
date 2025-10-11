@@ -18,7 +18,7 @@ export function Rockets() {
     const initialRockets: Rocket[] = Array.from({ length: 6 }, (_, i) => ({
       id: i,
       x: Math.random() * 100,
-      delay: Math.random() * 5,
+      delay: Math.random() * 1, // Reduced initial delay from 0-5s to 0-1s for faster appearance
       duration: 8 + Math.random() * 4,
       color: Math.random() > 0.5 ? "red" : "blue",
     }))
@@ -36,7 +36,7 @@ export function Rockets() {
         }
         return [...prev.slice(-5), newRocket]
       })
-    }, 3000)
+    }, 2000) // Reduced interval from 3000ms to 2000ms for more frequent rockets
 
     return () => clearInterval(interval)
   }, [])
