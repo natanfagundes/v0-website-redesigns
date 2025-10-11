@@ -1,4 +1,3 @@
-import type React from "react"
 import type { Metadata } from "next"
 import { GeistSans } from "geist/font/sans"
 import { Playfair_Display } from "next/font/google"
@@ -25,10 +24,17 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="pt-BR" suppressHydrationWarning>
-      <body className={`font-sans ${GeistSans.variable} ${playfair.variable}`}>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
-          <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
+    <html lang="pt-BR" className={`${GeistSans.variable} ${playfair.variable}`} suppressHydrationWarning>
+      <body className="font-sans bg-white dark:bg-slate-900 text-gray-900 dark:text-gray-100">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"  // Volta pro tema do sistema (mobile detecta Claro/Escuro)
+          enableSystem={true}   // Ativa detecção do SO
+          disableTransitionOnChange
+        >
+          <Suspense fallback={<div className="flex justify-center items-center h-screen">Carregando...</div>}>
+            {children}
+          </Suspense>
         </ThemeProvider>
         <Analytics />
       </body>
