@@ -1,17 +1,7 @@
 [build]
   command = "pnpm run build"
-  publish = ".next"  # Para Next.js com SSR/SSG
+  publish = ".next"
   environment = { NODE_VERSION = "18" }
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
-
-[[redirects]]
-  from = "/*"
-  to = "/.netlify/functions/___netlify-handler"
-  status = 200
-  force = true
-  conditions = { Role = ["/*"] }
-
-[dev]
-  framework = "next"
