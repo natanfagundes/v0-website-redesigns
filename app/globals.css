@@ -2,86 +2,36 @@
 @import "tw-animate-css";
 
 :root {
-  /* Light mode colors */
-  --background: oklch(0.98 0.005 90);
-  --foreground: oklch(0.15 0.02 30);
-  --card: oklch(0.99 0.002 90);
-  --card-foreground: oklch(0.15 0.02 30);
-  --popover: oklch(0.99 0.002 90);
-  --popover-foreground: oklch(0.15 0.02 30);
-  --primary: oklch(0.45 0.15 15);
-  --primary-foreground: oklch(0.98 0.01 90);
-  --secondary: oklch(0.25 0.08 250);
-  --secondary-foreground: oklch(0.98 0.01 90);
-  --muted: oklch(0.95 0.01 90);
-  --muted-foreground: oklch(0.45 0.02 30);
-  --accent: oklch(0.45 0.15 15);
-  --accent-foreground: oklch(0.98 0.01 90);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.98 0.01 90);
-  --border: oklch(0.88 0.01 90);
-  --input: oklch(0.88 0.01 90);
-  --ring: oklch(0.45 0.15 15);
-  --chart-1: oklch(0.45 0.15 15);
-  --chart-2: oklch(0.25 0.08 250);
-  --chart-3: oklch(0.55 0.12 30);
-  --chart-4: oklch(0.35 0.1 240);
-  --chart-5: oklch(0.65 0.08 20);
+  --background: #ffffff;
+  --foreground: #000000;
+  --card: #ffffff;
+  --card-foreground: #000000;
+  --primary: #8B0000;
+  --primary-foreground: #ffffff;
   --radius: 0.5rem;
-  --sidebar: oklch(0.99 0.002 90);
-  --sidebar-foreground: oklch(0.15 0.02 30);
-  --sidebar-primary: oklch(0.45 0.15 15);
-  --sidebar-primary-foreground: oklch(0.98 0.01 90);
-  --sidebar-accent: oklch(0.95 0.01 90);
-  --sidebar-accent-foreground: oklch(0.15 0.02 30);
-  --sidebar-border: oklch(0.88 0.01 90);
-  --sidebar-ring: oklch(0.45 0.15 15);
 }
 
 .dark {
-  /* Dark mode colors */
-  --background: oklch(0.22 0.02 30);
-  --foreground: oklch(0.98 0.01 90);
-  --card: oklch(0.24 0.03 30);
-  --card-foreground: oklch(0.98 0.01 90);
-  --popover: oklch(0.24 0.03 30);
-  --popover-foreground: oklch(0.98 0.01 90);
-  --primary: oklch(0.45 0.15 15);
-  --primary-foreground: oklch(0.98 0.01 90);
-  --secondary: oklch(0.25 0.08 250);
-  --secondary-foreground: oklch(0.98 0.01 90);
-  --muted: oklch(0.26 0.03 30);
-  --muted-foreground: oklch(0.65 0.02 90);
-  --accent: oklch(0.45 0.15 15);
-  --accent-foreground: oklch(0.98 0.01 90);
-  --destructive: oklch(0.396 0.141 25.723);
-  --destructive-foreground: oklch(0.98 0.01 90);
-  --border: oklch(0.3 0.04 30);
-  --input: oklch(0.3 0.04 30);
-  --ring: oklch(0.45 0.15 15);
-  --chart-1: oklch(0.45 0.15 15);
-  --chart-2: oklch(0.25 0.08 250);
-  --chart-3: oklch(0.55 0.12 30);
-  --chart-4: oklch(0.35 0.1 240);
-  --chart-5: oklch(0.65 0.08 20);
-  --sidebar: oklch(0.24 0.03 30);
-  --sidebar-foreground: oklch(0.98 0.01 90);
-  --sidebar-primary: oklch(0.45 0.15 15);
-  --sidebar-primary-foreground: oklch(0.98 0.01 90);
-  --sidebar-accent: oklch(0.26 0.03 30);
-  --sidebar-accent-foreground: oklch(0.98 0.01 90);
-  --sidebar-border: oklch(0.3 0.04 30);
-  --sidebar-ring: oklch(0.45 0.15 15);
+  --background: #1a1a1a;
+  --foreground: #ffffff;
+  --card: #1a1a1a;
+  --card-foreground: #ffffff;
+  --primary: #8B0000;
+  --primary-foreground: #ffffff;
 }
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-gray-200 outline-gray-500/50;
   }
   body {
     @apply bg-background text-foreground;
   }
 }
 
-/* Mantenha as animações (fade-in-up, scroll-left, etc.) como estão */
-/* Elas não afetam o layout, só estética */
+/* Mantenha só as animações necessárias, se quiser */
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in-up { animation: fade-in-up 0.8s ease-out forwards; }
