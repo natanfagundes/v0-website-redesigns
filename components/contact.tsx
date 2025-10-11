@@ -1,5 +1,6 @@
 "use client"
 
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -7,6 +8,37 @@ import { Mail, Phone, MapPin } from "lucide-react"
 import { SectionBackground } from "@/components/section-background"
 
 export function Contact() {
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  })
+  const [status, setStatus] = useState("")
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setStatus("Enviando...")
+
+    try {
+      const res = await fetch("/api/form", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      })
+
+      if (res.ok) {
+        setStatus("✅ Mensagem enviada com sucesso!")
+        setForm({ name: "", email: "", subject: "", message: "" })
+      } else {
+        setStatus("❌ Erro ao enviar. Tente novamente.")
+      }
+    } catch (err) {
+      console.error(err)
+      setStatus("❌ Falha na conexão.")
+    }
+  }
+
   return (
     <section id="contact" className="py-24 md:py-32 relative overflow-hidden">
       <SectionBackground variant="dark" />
@@ -57,19 +89,32 @@ export function Contact() {
             </div>
 
             {/* Contact Form */}
-            <form className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <label htmlFor="name" className="text-sm font-medium">
                     Nome
                   </label>
-                  <Input id="name" placeholder="Seu nome" />
+                  <Input
+                    id="name"
+                    placeholder="Seu nome"
+                    value={form.name}
+                    onChange={(e) => setForm({ ...form, name: e.target.value })}
+                    required
+                  />
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="email" className="text-sm font-medium">
                     Email
                   </label>
-                  <Input id="email" type="email" placeholder="seu@email.com" />
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="seu@email.com"
+                    value={form.email}
+                    onChange={(e) => setForm({ ...form, email: e.target.value })}
+                    required
+                  />
                 </div>
               </div>
 
@@ -77,19 +122,32 @@ export function Contact() {
                 <label htmlFor="subject" className="text-sm font-medium">
                   Assunto
                 </label>
-                <Input id="subject" placeholder="Como podemos ajudar?" />
+                <Input
+                  id="subject"
+                  placeholder="Como podemos ajudar?"
+                  value={form.subject}
+                  onChange={(e) => setForm({ ...form, subject: e.target.value })}
+                />
               </div>
 
               <div className="space-y-2">
                 <label htmlFor="message" className="text-sm font-medium">
                   Mensagem
                 </label>
-                <Textarea id="message" placeholder="Conte-nos mais sobre seu projeto..." rows={6} />
+                <Textarea
+                  id="message"
+                  placeholder="Conte-nos mais sobre seu projeto..."
+                  rows={6}
+                  value={form.message}
+                  onChange={(e) => setForm({ ...form, message: e.target.value })}
+                />
               </div>
 
-              <Button size="lg" className="w-full bg-primary hover:bg-primary/90">
+              <Button type="submit" size="lg" className="w-full bg-primary hover:bg-primary/90">
                 Enviar Mensagem
               </Button>
+
+              <p className="text-center text-sm text-muted-foreground">{status}</p>
             </form>
           </div>
         </div>
