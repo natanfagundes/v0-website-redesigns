@@ -8,33 +8,42 @@ import { Mail, Phone, MapPin } from "lucide-react";
 import { SectionBackground } from "@/components/section-background";
 
 export function Contact() {
+  // Estado para armazenar os dados do formulário
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     subject: "",
     message: "",
   });
+
+  // Estado para feedback ao usuário
   const [status, setStatus] = useState("");
 
+  // Atualiza o estado quando o usuário digita
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
+  // Envia os dados pro backend
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("Enviando...");
 
-    const res = await fetch("/api/form", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    });
+    try {
+      const res = await fetch("/api/form", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
 
-    if (res.ok) {
-      setStatus("Mensagem enviada com sucesso!");
-      setFormData({ name: "", email: "", subject: "", message: "" });
-    } else {
-      setStatus("Erro ao enviar. Tente novamente.");
+      if (res.ok) {
+        setStatus("Mensagem enviada com sucesso ✅");
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      } else {
+        setStatus("Erro ao enviar. Tente novamente.");
+      }
+    } catch (error) {
+      setStatus("Erro de conexão. Verifique sua internet.");
     }
   };
 
@@ -52,39 +61,69 @@ export function Contact() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-12">
-            {/* Contact Info */}
+            {/* Info */}
             <div className="space-y-8">
-              {/* ...seu código dos ícones aqui... */}
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <Mail className="w-6 h-6 text-primary" />
+                </div>
+                <div>
+                  <h3 className="font-semibold mb-1">Email</h3>
+                  <p className="text-muted-foreground">contato@ferreiracosseau.com</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <Phone className="w-6 h-6 text-primary" />
+                </div>
+                <div>
+                  <h3 className="font-semibold mb-1">Telefone</h3>
+                  <p className="text-muted-foreground">+55 (11) 9999-9999</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <MapPin className="w-6 h-6 text-primary" />
+                </div>
+                <div>
+                  <h3 className="font-semibold mb-1">Localização</h3>
+                  <p className="text-muted-foreground">São Paulo, Brasil</p>
+                </div>
+              </div>
             </div>
 
-            {/* Contact Form */}
+            {/* Formulário */}
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <label htmlFor="name" className="text-sm font-medium">Nome</label>
-                  <Input id="name" value={formData.name} onChange={handleChange} placeholder="Seu nome" />
+                  <Input id="name" value={formData.name} onChange={handleChange} placeholder="Seu nome" required />
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="email" className="text-sm font-medium">Email</label>
-                  <Input id="email" type="email" value={formData.email} onChange={handleChange} placeholder="seu@email.com" />
+                  <Input id="email" type="email" value={formData.email} onChange={handleChange} placeholder="seu@email.com" required />
                 </div>
               </div>
 
               <div className="space-y-2">
                 <label htmlFor="subject" className="text-sm font-medium">Assunto</label>
-                <Input id="subject" value={formData.subject} onChange={handleChange} placeholder="Como podemos ajudar?" />
+                <Input id="subject" value={formData.subject} onChange={handleChange} placeholder="Como podemos ajudar?" required />
               </div>
 
               <div className="space-y-2">
                 <label htmlFor="message" className="text-sm font-medium">Mensagem</label>
-                <Textarea id="message" value={formData.message} onChange={handleChange} placeholder="Conte-nos mais sobre seu projeto..." rows={6} />
+                <Textarea id="message" value={formData.message} onChange={handleChange} placeholder="Conte-nos mais sobre seu projeto..." rows={6} required />
               </div>
 
               <Button size="lg" type="submit" className="w-full bg-primary hover:bg-primary/90">
                 Enviar Mensagem
               </Button>
 
-              {status && <p className="text-center text-sm text-muted-foreground">{status}</p>}
+              {status && (
+                <p className="text-center text-sm text-muted-foreground mt-4">{status}</p>
+              )}
             </form>
           </div>
         </div>
