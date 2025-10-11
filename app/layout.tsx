@@ -25,13 +25,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" className={`${GeistSans.variable} ${playfair.variable}`} suppressHydrationWarning>
-      <body className="bg-background text-foreground">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"  // Segue o tema do SO (mobile detecta Claro/Escuro)
-          enableSystem={true}
-          disableTransitionOnChange
-        >
+      <body className="bg-white text-black">
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem={true}>
           <Suspense fallback={<div className="flex justify-center items-center h-screen">Carregando...</div>}>
             {children}
           </Suspense>
