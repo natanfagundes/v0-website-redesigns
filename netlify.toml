@@ -1,13 +1,10 @@
 [build]
   command = "pnpm run build"
-  publish = ".next"  # ou "out", dependendo de como você exporta o Next.js
+  publish = ".next"  # Para Next.js com SSR/SSG
   environment = { NODE_VERSION = "18" }
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
-
-[functions]
-  directory = ".netlify/functions"  # Opcional, só se você tiver funções serverless
 
 [[redirects]]
   from = "/*"
