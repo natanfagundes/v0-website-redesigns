@@ -57,19 +57,34 @@ export function Contact() {
             </div>
 
             {/* Contact Form */}
-            <form className="space-y-6">
+            <form 
+              name="contact" 
+              method="post" 
+              data-netlify="true" 
+              className="space-y-6"
+            >
+              <input type="hidden" name="form-name" value="contact" />
+              
+              {/* Campo oculto para evitar spam (não mexa) */}
+              <div style={{ position: 'absolute', left: '-5000px' }} aria-hidden="true">
+                <label>
+                  Não preencha se for humano: 
+                  <input name="bot-field" />
+                </label>
+              </div>
+
               <div className="grid sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <label htmlFor="name" className="text-sm font-medium">
                     Nome
                   </label>
-                  <Input id="name" placeholder="Seu nome" />
+                  <Input id="name" name="name" placeholder="Seu nome" />
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="email" className="text-sm font-medium">
                     Email
                   </label>
-                  <Input id="email" type="email" placeholder="seu@email.com" />
+                  <Input id="email" name="email" type="email" placeholder="seu@email.com" />
                 </div>
               </div>
 
@@ -77,17 +92,17 @@ export function Contact() {
                 <label htmlFor="subject" className="text-sm font-medium">
                   Assunto
                 </label>
-                <Input id="subject" placeholder="Como podemos ajudar?" />
+                <Input id="subject" name="subject" placeholder="Como podemos ajudar?" />
               </div>
 
               <div className="space-y-2">
                 <label htmlFor="message" className="text-sm font-medium">
                   Mensagem
                 </label>
-                <Textarea id="message" placeholder="Conte-nos mais sobre seu projeto..." rows={6} />
+                <Textarea id="message" name="message" placeholder="Conte-nos mais sobre seu projeto..." rows={6} />
               </div>
 
-              <Button size="lg" className="w-full bg-primary hover:bg-primary/90">
+              <Button type="submit" size="lg" className="w-full bg-primary hover:bg-primary/90">
                 Enviar Mensagem
               </Button>
             </form>
