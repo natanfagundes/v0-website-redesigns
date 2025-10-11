@@ -5,8 +5,28 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Mail, Phone, MapPin } from "lucide-react"
 import { SectionBackground } from "@/components/section-background"
+import { useState } from "react";  // Adicione isso para gerenciar estado (opcional, para feedback)
 
 export function Contact() {
+  const [success, setSuccess] = useState(false);  // Opcional: para mostrar mensagem de sucesso
+  const [error, setError] = useState(false);     // Opcional: para erro
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    try {
+      await fetch("/__forms.html", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formData).toString(),
+      });
+      setSuccess(true);  // Mostre sucesso
+      event.target.reset();  // Limpe o formulário
+    } catch (err) {
+      setError(true);  // Mostre erro
+    }
+  };
+
   return (
     <section id="contact" className="py-24 md:py-32 relative overflow-hidden">
       <SectionBackground variant="dark" />
@@ -57,15 +77,10 @@ export function Contact() {
             </div>
 
             {/* Contact Form */}
-            <form 
-              name="contact" 
-              method="post" 
-              data-netlify="true" 
-              className="space-y-6"
-            >
+            <form name="contact" method="post" onSubmit={handleSubmit} className="space-y-6">
               <input type="hidden" name="form-name" value="contact" />
               
-              {/* Campo oculto para evitar spam (não mexa) */}
+              {/* Honeypot para spam (não mexa) */}
               <div style={{ position: 'absolute', left: '-5000px' }} aria-hidden="true">
                 <label>
                   Não preencha se for humano: 
@@ -105,6 +120,9 @@ export function Contact() {
               <Button type="submit" size="lg" className="w-full bg-primary hover:bg-primary/90">
                 Enviar Mensagem
               </Button>
+
+              {success && <p>Mensagem enviada com sucesso!</p>}
+              {error && <p>Erro ao enviar. Tente novamente.</p>}
             </form>
           </div>
         </div>
