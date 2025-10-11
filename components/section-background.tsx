@@ -38,16 +38,15 @@ export function SectionBackground({ variant = "primary", children }: SectionBack
     }> = []
 
     const colors = {
-      primary: ["rgba(139, 21, 56, 0.3)", "rgba(139, 21, 56, 0.2)", "rgba(139, 21, 56, 0.1)"],
-      secondary: ["rgba(26, 43, 74, 0.3)", "rgba(26, 43, 74, 0.2)", "rgba(26, 43, 74, 0.1)"],
-      mixed: ["rgba(139, 21, 56, 0.3)", "rgba(26, 43, 74, 0.3)", "rgba(139, 21, 56, 0.2)", "rgba(26, 43, 74, 0.2)"],
-      dark: ["rgba(139, 21, 56, 0.2)", "rgba(26, 43, 74, 0.2)", "rgba(255, 255, 255, 0.05)"],
+      primary: ["rgba(139, 21, 56, 0.25)", "rgba(26, 43, 74, 0.28)", "rgba(139, 21, 56, 0.18)"],
+      secondary: ["rgba(26, 43, 74, 0.3)", "rgba(26, 43, 74, 0.22)", "rgba(139, 21, 56, 0.15)"],
+      mixed: ["rgba(139, 21, 56, 0.25)", "rgba(26, 43, 74, 0.3)", "rgba(139, 21, 56, 0.15)", "rgba(26, 43, 74, 0.22)"],
+      dark: ["rgba(26, 43, 74, 0.2)", "rgba(139, 21, 56, 0.15)", "rgba(26, 43, 74, 0.12)"],
     }
 
     const particleColors = colors[variant]
 
-    // Create particles
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 35; i++) {
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
@@ -90,7 +89,10 @@ export function SectionBackground({ variant = "primary", children }: SectionBack
             ctx.beginPath()
             ctx.moveTo(p1.x, p1.y)
             ctx.lineTo(p2.x, p2.y)
-            ctx.strokeStyle = `rgba(139, 21, 56, ${0.1 * (1 - distance / 150)})`
+            const useBlue = Math.random() > 0.5
+            ctx.strokeStyle = useBlue
+              ? `rgba(26, 43, 74, ${0.08 * (1 - distance / 150)})`
+              : `rgba(139, 21, 56, ${0.06 * (1 - distance / 150)})`
             ctx.lineWidth = 0.5
             ctx.stroke()
           }
