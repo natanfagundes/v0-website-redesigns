@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
 import { useEffect, useState } from "react"
 import { FloatingElements } from "./floating-elements"
+import { Rockets } from "./rockets"
 
 export function Hero() {
   const [scrollY, setScrollY] = useState(0)
@@ -33,6 +34,7 @@ export function Hero() {
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-card animate-gradient-shift" />
 
       <FloatingElements />
+      <Rockets />
 
       <div
         className="absolute top-20 left-10 w-32 h-32 bg-primary/10 rounded-full blur-3xl animate-blob-float"

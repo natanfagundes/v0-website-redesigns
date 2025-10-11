@@ -8,7 +8,7 @@ import { SectionBackground } from "@/components/section-background"
 
 export function Contact() {
   return (
-    <section className="py-24 md:py-32 relative overflow-hidden">
+    <section id="contact" className="py-24 md:py-32 relative overflow-hidden">
       <SectionBackground variant="dark" />
 
       <div className="container px-4 mx-auto max-w-7xl relative z-10">
