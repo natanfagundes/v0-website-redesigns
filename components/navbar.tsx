@@ -77,13 +77,22 @@ export function Navbar() {
             </Button>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button className="md:hidden text-foreground" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          <div className="md:hidden flex items-center gap-3">
+            {mounted && (
+              <button
+                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                className="text-foreground/80 hover:text-primary transition-colors p-2 rounded-lg hover:bg-muted"
+                aria-label="Toggle theme"
+              >
+                {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
+              </button>
+            )}
+            <button className="text-foreground" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
 
-        {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="md:hidden py-4 space-y-4 border-t border-border">
             <button
@@ -104,15 +113,6 @@ export function Navbar() {
             >
               Contato
             </button>
-            {mounted && (
-              <button
-                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="flex items-center gap-2 w-full text-left text-foreground/80 hover:text-primary transition-colors py-2"
-              >
-                {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
-                <span>{theme === "dark" ? "Modo Claro" : "Modo Escuro"}</span>
-              </button>
-            )}
             <Button onClick={() => scrollToSection("contact")} className="w-full bg-primary hover:bg-primary/90">
               Fale Conosco
             </Button>
