@@ -10,37 +10,37 @@ export function ServicesShowcase() {
     {
       id: "business-intelligence",
       title: "Business Intelligence",
-      color: "red", // vermelho bordô
+      color: "red",
       description:
-        "Potencialize suas decisões com Business Intelligence (B.I). Por meio de inteligência e dashboards, oferecemos insights cruciais para o seu negócio. Monitorando os dados da sua empresa em tempo real, auxiliamos você a transformar informações em oportunidades.",
+        "Potencialize suas decisões com inteligência de dados em tempo real. Desenvolvemos dashboards estratégicos que transformam informações em insights acionáveis, guiando seu negócio rumo a decisões mais assertivas e oportunidades de crescimento.",
     },
     {
       id: "seo",
       title: "SEO",
-      color: "blue", // azul navy
+      color: "blue",
       description:
-        "Otimização para mecanismos de busca que coloca sua empresa no topo dos resultados do Google. Estratégias comprovadas para aumentar sua visibilidade online.",
+        "SEO que transforma presença em relevância. Aparecer é fácil. Ser lembrado é estratégia. Com táticas de SEO personalizadas, impulsionamos sua marca ao topo das buscas e garantimos visibilidade real e duradoura.",
     },
     {
       id: "gestao-comunidade",
       title: "Gestão de Comunidade",
-      color: "red", // vermelho bordô
+      color: "red",
       description:
-        "Construa e engaje sua comunidade online com estratégias personalizadas que criam conexões autênticas com seu público.",
+        "Construímos comunidades engajadas e estratégicas com base em dados e comportamento real. Através de conteúdo e interação inteligente, aumentamos retenção, fidelização e valor de marca.",
     },
     {
       id: "programatica",
-      title: "Programática",
-      color: "blue", // azul navy
+      title: "Mídia Programática",
+      color: "blue",
       description:
-        "Publicidade programática inteligente que alcança seu público-alvo no momento certo, maximizando o retorno sobre investimento.",
+        "Alcance o público certo, no momento certo. Com tecnologia, dados e segmentação inteligente, entregamos campanhas de alta performance que maximizam o retorno sobre investimento e fortalecem a presença da sua marca.",
     },
     {
       id: "crm-email",
       title: "CRM e E-mail Marketing",
-      color: "red", // vermelho bordô
+      color: "red",
       description:
-        "Automatize e personalize sua comunicação com clientes através de estratégias avançadas de CRM e campanhas de e-mail marketing eficazes.",
+        "Automatize e personalize sua comunicação com precisão. Desenvolvemos estratégias de relacionamento inteligentes que fortalecem o vínculo entre marca e cliente, gerando engajamento, fidelização e aumento de conversões.",
     },
   ]
 

@@ -67,7 +67,8 @@ export function Hero() {
           </h1>
 
           <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl text-pretty leading-relaxed animate-fade-in-up animation-delay-200">
-            Transformamos estratégias em resultados concretos com excelência e inovação
+            Transformamos estratégias em resultados concretos, com excelência, inovação e foco em crescimento
+            sustentável.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 pt-4 animate-fade-in-up animation-delay-400">

@@ -2,9 +2,9 @@
 
 export function InfiniteStatsCarousel() {
   const stats = [
-    { icon: "👤", number: "8 ANOS", label: "DE EXISTÊNCIA" },
-    { icon: "👥", number: "+100", label: "CLIENTES ATIVOS" },
-    { icon: "$", number: "+300 MI", label: "DE FATURAMENTO EM ADS" },
+    { icon: "📅", number: "5 ANOS", label: "DE EXISTÊNCIA" },
+    { icon: "👥", number: "+50", label: "CLIENTES ATIVOS" },
+    { icon: "💰", number: "+10 MI", label: "DE FATURAMENTO EM ADS" },
   ]
 
   // Duplicate stats for seamless loop
