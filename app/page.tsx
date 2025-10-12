@@ -2,6 +2,7 @@ import { Navbar } from "@/components/navbar"
 import { Hero } from "@/components/hero"
 import { InfiniteStatsCarousel } from "@/components/infinite-stats-carousel"
 import { ServicesShowcase } from "@/components/services-showcase"
+import { Services } from "@/components/services"
 import { About } from "@/components/about"
 import { CTASection } from "@/components/cta-section"
 import { Contact } from "@/components/contact"
@@ -15,6 +16,7 @@ export default function Home() {
       <Hero />
       <InfiniteStatsCarousel />
       <ServicesShowcase />
+      <Services />
       <About />
       <CTASection />
       <Contact />
