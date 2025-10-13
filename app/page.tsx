@@ -10,6 +10,8 @@ import { WhatsAppButton } from "@/components/whatsapp-button"
 import ClientsCarousel from '@/components/ClientsCarousel';
 import FeedbackCarousel from '@/components/FeedbackCarousel';
 import YasmimSection from '@/components/YasmimSection';
+import MetodoSection from "@/components/MetodoSection";
+
 
 
 export default function Home() {
@@ -19,6 +21,7 @@ export default function Home() {
       <Hero />
       <InfiniteStatsCarousel />
       <ServicesShowcase />
+      <MetodoSection />
       <YasmimSection />
       <About />
       <CTASection />
