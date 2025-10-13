@@ -9,6 +9,8 @@ import { Footer } from "@/components/footer"
 import { WhatsAppButton } from "@/components/whatsapp-button"
 import ClientsCarousel from '@/components/ClientsCarousel';
 import FeedbackCarousel from '@/components/FeedbackCarousel';
+import YasmimSection from '@/components/YasmimSection';
+
 
 export default function Home() {
   return (
@@ -17,6 +19,7 @@ export default function Home() {
       <Hero />
       <InfiniteStatsCarousel />
       <ServicesShowcase />
+      <YasmimSection />
       <About />
       <CTASection />
       <Contact />
