@@ -1,0 +1,26 @@
+.wrapper {
+  background: #fff;
+  padding: 3rem 1rem;
+  text-align: center;
+}
+.title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+.carousel {
+  display: flex;
+  gap: 3rem;
+  overflow: hidden;
+  scroll-behavior: smooth;
+}
+.logo {
+  flex: 0 0 auto;
+  filter: grayscale(100%);
+  opacity: 0.8;
+  transition: filter 0.3s, opacity 0.3s;
+}
+.logo:hover {
+  filter: grayscale(0%);
+  opacity: 1;
+}
