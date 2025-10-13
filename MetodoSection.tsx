@@ -1,3 +1,4 @@
+import "../styles/metodo.css";
 <section className="metodo-wrapper">
   <div className="metodo-container">
     <h2 className="metodo-title">O Método F&amp;C de Escala Sustentável</h2>
