@@ -14,7 +14,6 @@ const logos = [
   { src: '/logos/remax.png', dark: false },
   { src: '/logos/microsoft.png', dark: false },
   { src: '/logos/kaspersky.png', dark: true },
-  { src: '/logos/canalike.png', dark: true },
   { src: '/logos/animale.png', dark: false },
 ];
 
