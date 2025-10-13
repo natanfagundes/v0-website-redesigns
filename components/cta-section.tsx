@@ -17,7 +17,7 @@ export function CTASection() {
 
       <div className="container px-4 mx-auto max-w-7xl relative z-10">
         <div className="max-w-4xl mx-auto text-center space-y-8 bg-card/30 backdrop-blur-md p-12 md:p-16 rounded-3xl border border-border">
-          <h2 className="text-4xl md:text-6xl font-bold text-balance">VAMOS IMPACTAR JUNTOS?</h2>
+          <h2 className="text-4xl md:text-6xl font-bold text-balance">Vamos acelerar seus resultados juntos?</h2>
           <Button size="lg" onClick={scrollToContact} className="text-lg px-8 group">
             <span className="mr-2">{"<<"}</span>
             FALE CONOSCO

@@ -109,21 +109,37 @@ export function ServicesShowcase() {
     setIsSubmitting(true)
     setSubmitStatus("idle")
 
+    const servicosTitles = formData.servicos.map(
+      (serviceId) => services.find((s) => s.id === serviceId)?.title || serviceId,
+    )
+
+    console.log("[v0] Submitting form with data:", { ...formData, servicos: servicosTitles })
+
     try {
       const response = await fetch("/api/submit-lead", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          servicos: servicosTitles,
+        }),
       })
 
-      if (!response.ok) {
-        throw new Error("Falha ao enviar formulário")
-      }
+      console.log("[v0] Response status:", response.status)
 
       const result = await response.json()
-      console.log("[v0] Form submission result:", result)
+      console.log("[v0] Response data:", result)
+
+      if (!response.ok) {
+        if (response.status === 500 && result.details?.includes("401")) {
+          throw new Error(
+            "Configuração do Google Sheets pendente. Consulte o arquivo CONFIGURACAO_GOOGLE_SHEETS_PASSO_A_PASSO.md para instruções detalhadas.",
+          )
+        }
+        throw new Error(result.details || result.error || "Falha ao enviar formulário")
+      }
 
       setSubmitStatus("success")
       setFormData({
@@ -133,9 +149,17 @@ export function ServicesShowcase() {
         empresa: "",
         servicos: [],
       })
-    } catch (error) {
-      console.error("[v0] Form submission error:", error)
+
+      setTimeout(() => {
+        setSubmitStatus("idle")
+      }, 5000)
+    } catch (error: any) {
+      console.error("[v0] Form submission error:", error.message)
       setSubmitStatus("error")
+
+      setTimeout(() => {
+        setSubmitStatus("idle")
+      }, 5000)
     } finally {
       setIsSubmitting(false)
     }
@@ -300,9 +324,15 @@ export function ServicesShowcase() {
               )}
 
               {submitStatus === "error" && (
-                <p className="text-sm text-red-600 dark:text-red-400">
-                  Erro ao enviar mensagem. Por favor, tente novamente.
-                </p>
+                <div className="space-y-2">
+                  <p className="text-sm text-red-600 dark:text-red-400 font-semibold">⚠️ Erro ao enviar mensagem</p>
+                  <p className="text-xs text-red-600/80 dark:text-red-400/80">
+                    O Google Sheets ainda não foi configurado. Siga as instruções no arquivo{" "}
+                    <code className="bg-red-100 dark:bg-red-900/30 px-1 py-0.5 rounded">
+                      CONFIGURACAO_GOOGLE_SHEETS_PASSO_A_PASSO.md
+                    </code>
+                  </p>
+                </div>
               )}
 
               <Button
