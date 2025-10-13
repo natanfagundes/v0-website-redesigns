@@ -13,7 +13,6 @@ const logos = [
   '/logos/remax.png',
   '/logos/microsoft.png',
   '/logos/kaspersky.png',
-  '/logos/canalike.png',
   '/logos/animale.png',
 ];
 
