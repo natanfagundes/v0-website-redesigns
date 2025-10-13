@@ -2,18 +2,20 @@
 import Image from 'next/image';
 import { useEffect, useRef } from 'react';
 
+// Marque as logos que são originalmente escuras:
 const logos = [
-  '/logos/santander.png',
-  '/logos/zapsign.png',
-  '/logos/bradesco.png',
-  '/logos/stellantis.png',
-  '/logos/fiat.png',
-  '/logos/jeep.png',
-  '/logos/ram.png',
-  '/logos/remax.png',
-  '/logos/microsoft.png',
-  '/logos/kaspersky.png',
-  '/logos/animale.png',
+  { src: '/logos/santander.png', dark: false },
+  { src: '/logos/zapsign.png', dark: true },
+  { src: '/logos/bradesco.png', dark: false },
+  { src: '/logos/stellantis.png', dark: true },
+  { src: '/logos/fiat.png', dark: false },
+  { src: '/logos/jeep.png', dark: false },
+  { src: '/logos/ram.png', dark: false },
+  { src: '/logos/remax.png', dark: false },
+  { src: '/logos/microsoft.png', dark: false },
+  { src: '/logos/kaspersky.png', dark: true },
+  { src: '/logos/canalike.png', dark: true },
+  { src: '/logos/animale.png', dark: false },
 ];
 
 export default function ClientsCarousel() {
@@ -25,7 +27,7 @@ export default function ClientsCarousel() {
 
     let animationFrame: number;
     let scrollX = 0;
-    const speed = 0.5; // 👈 controle da velocidade (ajuste aqui)
+    const speed = 0.6; // velocidade da animação
 
     const animate = () => {
       if (el.scrollWidth > 0) {
@@ -54,7 +56,7 @@ export default function ClientsCarousel() {
         ref={scrollRef}
         className="flex gap-12 overflow-hidden w-full justify-start whitespace-nowrap px-8"
       >
-        {[...logos, ...logos].map((src, i) => (
+        {[...logos, ...logos].map(({ src, dark }, i) => (
           <div
             key={i}
             className="flex-shrink-0 opacity-80 hover:opacity-100 transition"
@@ -64,7 +66,9 @@ export default function ClientsCarousel() {
               alt="Logo cliente"
               width={120}
               height={60}
-              className="object-contain select-none"
+              className={`object-contain select-none transition duration-300 ${
+                dark ? 'dark:brightness-[3] dark:contrast-[0.9]' : ''
+              }`}
               priority
             />
           </div>
