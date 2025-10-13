@@ -1,7 +1,6 @@
 'use client';
 import Image from 'next/image';
 import { useEffect, useRef } from 'react';
-import styles from './ClientsCarousel.module.css';
 
 const logos = [
   '/logos/santander.png',
@@ -16,13 +15,12 @@ const logos = [
   '/logos/kaspersky.png',
   '/logos/canalike.png',
   '/logos/animale.png',
-  // adicione mais conforme precisar
 ];
 
 export default function ClientsCarousel() {
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  // Scroll automático (loop)
+  // Animação de rolagem contínua
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
@@ -36,15 +34,33 @@ export default function ClientsCarousel() {
   }, []);
 
   return (
-    <section className={styles.wrapper}>
-      <h3 className={styles.title}>Empresas que já confiam no nosso trabalho</h3>
-      <div className={styles.carousel} ref={scrollRef}>
+    <section className="bg-white dark:bg-[#250000] py-12 relative overflow-hidden">
+      <div className="text-center mb-8">
+        <h3 className="text-lg font-semibold text-gray-800 dark:text-white">
+          Empresas que já confiam no nosso trabalho
+        </h3>
+      </div>
+
+      <div
+        className="flex gap-12 overflow-hidden scroll-smooth w-full justify-center px-6"
+        ref={scrollRef}
+      >
         {[...logos, ...logos].map((src, i) => (
-          <div className={styles.logo} key={i}>
-            <Image src={src} alt="Logo cliente" width={120} height={60} />
+          <div key={i} className="flex-shrink-0 opacity-80 hover:opacity-100 transition">
+            <Image
+              src={src}
+              alt="Logo cliente"
+              width={120}
+              height={60}
+              className="object-contain dark:invert"
+            />
           </div>
         ))}
       </div>
+
+      {/* Gradiente de borda lateral para um efeito visual suave */}
+      <div className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-white dark:from-[#250000] to-transparent pointer-events-none" />
+      <div className="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-white dark:from-[#250000] to-transparent pointer-events-none" />
     </section>
   );
 }
