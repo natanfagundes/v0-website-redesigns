@@ -64,24 +64,24 @@ export function MethodSection() {
         />
       </div>
 
-      <div className="container px-4 mx-auto relative z-10">
+      <div className="container px-4 mx-auto relative z-10 flex flex-col items-center">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 max-w-4xl">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 text-balance">
             O Método F&C de Escala Sustentável
           </h2>
-          <p className="text-lg md:text-xl text-white/80 max-w-3xl mx-auto text-pretty">
+          <p className="text-lg md:text-xl text-white/80 text-pretty">
             Uma estrutura desenvolvida para transformar operações em crescimento previsível, unindo estratégia, dados e
             experiência em um processo contínuo de evolução.
           </p>
         </div>
 
         {/* Steps Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto place-items-center">
           {steps.map((step, index) => (
             <Card
               key={index}
-              className="bg-white/10 backdrop-blur-sm border-white/20 p-6 hover:bg-white/15 transition-all duration-300 hover:scale-105 hover:shadow-xl"
+              className="bg-white/10 backdrop-blur-sm border-white/20 p-6 hover:bg-white/15 transition-all duration-300 hover:scale-105 hover:shadow-xl w-full max-w-md"
             >
               {/* Step number and icon */}
               <div className="flex items-center justify-between mb-4">
