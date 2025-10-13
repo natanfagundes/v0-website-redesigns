@@ -2,9 +2,11 @@
 
 export function InfiniteStatsCarousel() {
   const stats = [
-    { icon: "📅", number: "5 ANOS", label: "DE EXISTÊNCIA" },
-    { icon: "👥", number: "+50", label: "CLIENTES ATIVOS" },
-    { icon: "💰", number: "+10 MI", label: "DE FATURAMENTO EM ADS" },
+    { icon: "📅", number: "5 ANOS", label: "EXPERIÊNCIA EM ESTRATÉGIAS DIGITAIS" },
+    { icon: "👥", number: "50+", label: "CLIENTES IMPACTADOS EM DIFERENTES SETORES" },
+    { icon: "📈", number: "15X", label: "MÉDIA DE ROAS ALCANÇADO EM CAMPANHAS" },
+    { icon: "🎯", number: "250+", label: "CAMPANHAS GERENCIADAS COM SUCESSO" },
+    { icon: "🏆", number: "20+", label: "CERTIFICAÇÕES EM PLATAFORMAS" },
   ]
 
   // Duplicate stats for seamless loop

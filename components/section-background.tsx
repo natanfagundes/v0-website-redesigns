@@ -44,7 +44,7 @@ export function SectionBackground({ variant = "primary", children }: SectionBack
       dark: ["rgba(26, 43, 74, 0.2)", "rgba(139, 21, 56, 0.15)", "rgba(26, 43, 74, 0.12)"],
     }
 
-    const particleColors = colors[variant]
+    const particleColors = colors[variant] || colors.primary
 
     for (let i = 0; i < 35; i++) {
       particles.push({

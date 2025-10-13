@@ -6,7 +6,7 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Checkbox } from "@/components/ui/checkbox"
 import { Code2 } from "lucide-react"
 import { SectionBackground } from "@/components/section-background"
 
@@ -83,7 +83,7 @@ export function ServicesShowcase() {
     telefone: "",
     email: "",
     empresa: "",
-    servico: "",
+    servicos: [] as string[],
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
@@ -95,10 +95,12 @@ export function ServicesShowcase() {
     }))
   }
 
-  const handleServiceChange = (value: string) => {
+  const handleServiceToggle = (serviceId: string) => {
     setFormData((prev) => ({
       ...prev,
-      servico: value,
+      servicos: prev.servicos.includes(serviceId)
+        ? prev.servicos.filter((id) => id !== serviceId)
+        : [...prev.servicos, serviceId],
     }))
   }
 
@@ -108,11 +110,20 @@ export function ServicesShowcase() {
     setSubmitStatus("idle")
 
     try {
-      // TODO: Implement Google Sheets integration later
-      console.log("[v0] Form data:", formData)
+      const response = await fetch("/api/submit-lead", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
 
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+      if (!response.ok) {
+        throw new Error("Falha ao enviar formulário")
+      }
+
+      const result = await response.json()
+      console.log("[v0] Form submission result:", result)
 
       setSubmitStatus("success")
       setFormData({
@@ -120,7 +131,7 @@ export function ServicesShowcase() {
         telefone: "",
         email: "",
         empresa: "",
-        servico: "",
+        servicos: [],
       })
     } catch (error) {
       console.error("[v0] Form submission error:", error)
@@ -261,20 +272,25 @@ export function ServicesShowcase() {
                 />
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="servico">Qual serviço tem interesse?</Label>
-                <Select value={formData.servico} onValueChange={handleServiceChange} required>
-                  <SelectTrigger className="bg-background/50">
-                    <SelectValue placeholder="Selecione um serviço" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {services.map((service) => (
-                      <SelectItem key={service.id} value={service.id}>
+              <div className="space-y-3">
+                <Label>Quais serviços tem interesse? (pode escolher mais de um)</Label>
+                <div className="space-y-2 max-h-48 overflow-y-auto pr-2">
+                  {services.map((service) => (
+                    <div key={service.id} className="flex items-center space-x-2">
+                      <Checkbox
+                        id={service.id}
+                        checked={formData.servicos.includes(service.id)}
+                        onCheckedChange={() => handleServiceToggle(service.id)}
+                      />
+                      <label
+                        htmlFor={service.id}
+                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
+                      >
                         {service.title}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                      </label>
+                    </div>
+                  ))}
+                </div>
               </div>
 
               {submitStatus === "success" && (
@@ -291,7 +307,7 @@ export function ServicesShowcase() {
 
               <Button
                 type="submit"
-                disabled={isSubmitting}
+                disabled={isSubmitting || formData.servicos.length === 0}
                 className="w-full transition-colors duration-300"
                 style={{
                   backgroundColor: activeService.color === "red" ? "#8B1538" : "#1a2b4a",
@@ -299,6 +315,11 @@ export function ServicesShowcase() {
               >
                 {isSubmitting ? "Enviando..." : "Enviar Interesse"}
               </Button>
+
+              <p className="text-xs text-muted-foreground text-center leading-relaxed">
+                Respeitamos sua privacidade. Seus dados são usados exclusivamente para retornar o contato e ajudar sua
+                empresa a crescer. Você pode cancelar o envio de e-mails a qualquer momento.
+              </p>
             </form>
           </div>
         </div>
