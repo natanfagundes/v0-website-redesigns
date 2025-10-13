@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Code2 } from "lucide-react"
 import { SectionBackground } from "@/components/section-background"
 
 export function ServicesShowcase() {
@@ -172,11 +171,8 @@ export function ServicesShowcase() {
       <div className="container px-4 mx-auto max-w-7xl relative z-10">
         <div className="text-center mb-12 space-y-4">
           <p className="text-sm text-primary font-mono">{"{ SERVIÇOS }"}</p>
-          <h2 className="text-4xl md:text-6xl font-bold text-balance">
-            ESTRATÉGIA, <Code2 className="inline w-12 h-12 text-primary" />
-            <br />
-            DADOS E CRIAÇÃO.
-          </h2>
+          {/* Removed the Code2 icon from the title */}
+          <h2 className="text-4xl md:text-6xl font-bold text-balance">ESTRATÉGIA, DADOS E CRIAÇÃO.</h2>
         </div>
 
         {/* Service Tags */}

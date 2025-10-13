@@ -6,6 +6,7 @@ import { ServicesShowcase } from "@/components/services-showcase"
 import { About } from "@/components/about"
 import { AboutUs } from "@/components/about-us"
 import { ClientsCarousel } from "@/components/clients-carousel"
+import { Testimonials } from "@/components/testimonials"
 import { AboutYasmim } from "@/components/about-yasmim"
 import { CTASection } from "@/components/cta-section"
 import { Contact } from "@/components/contact"
@@ -20,16 +21,17 @@ export default function Home() {
       <Hero />
       {/* Faixa com as informações */}
       <InfiniteStatsCarousel />
+      {/* Método */}
       <MethodSection />
       {/* Serviços */}
       <ServicesShowcase />
       {/* Bloco Institucional (Excelência em cada projeto) */}
       <About />
-      {/* Missão e Valores (Sobre Nós) */}
+      {/* Missão e Valores */}
       <AboutUs />
       {/* Faixa com as logos de clientes */}
       <ClientsCarousel />
-      {/* TODO: Depoimentos - to be added later */}
+      <Testimonials />
       {/* Quem é a Yasmim */}
       <AboutYasmim />
       {/* Vamos impactar */}

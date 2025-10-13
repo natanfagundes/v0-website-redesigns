@@ -10,7 +10,6 @@ export function AboutUs() {
 
       <div className="container px-4 mx-auto max-w-6xl relative z-10">
         <div className="text-center mb-16 space-y-4">
-          <p className="text-sm text-primary font-mono">{"{ SOBRE NÓS }"}</p>
           <h2 className="text-4xl md:text-5xl font-bold">Sobre Nós</h2>
         </div>
 

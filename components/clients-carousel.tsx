@@ -4,15 +4,15 @@ import Image from "next/image"
 
 export function ClientsCarousel() {
   const clients = [
-    { name: "Santander", logo: "/santander.jpg" },
-    { name: "Zapsign", logo: "/zapsign.jpg" },
-    { name: "Bradesco", logo: "/bradesco.jpg" },
-    { name: "Stellantis", logo: "/stellantis.jpg" },
-    { name: "Jeep", logo: "/jeep.jpg" },
-    { name: "RAM", logo: "/ram.jpg" },
-    { name: "Microsoft", logo: "/microsoft.jpg" },
-    { name: "REMAX", logo: "/remax.jpg" },
-    { name: "Animale", logo: "/animale.jpg" },
+    { name: "Santander", logo: "/santander.png" },
+    { name: "Zapsign", logo: "/zapsign.png" },
+    { name: "Bradesco", logo: "/bradesco.png" },
+    { name: "Stellantis", logo: "/stellantis.png" },
+    { name: "Jeep", logo: "/jeep.png" },
+    { name: "RAM", logo: "/ram.png" },
+    { name: "Microsoft", logo: "/microsoft.png" },
+    { name: "REMAX", logo: "/remax.png" },
+    { name: "Animale", logo: "/animale.png" },
     { name: "Citroën", logo: "/citroen.png" },
     { name: "Peugeot", logo: "/peugeot.png" },
     { name: "OnoClicas", logo: "/onoclicas.png" },
@@ -26,7 +26,7 @@ export function ClientsCarousel() {
   return (
     <section className="py-16 bg-card border-y border-border overflow-hidden">
       <div className="container px-4 mx-auto mb-16">
-        <h2 className="text-3xl md:text-4xl font-bold text-center">Clientes que Confiam em Nós</h2>
+        <h2 className="text-3xl md:text-4xl font-bold text-center">Marcas que já fizeram parte da nossa história</h2>
       </div>
       <div className="relative max-w-7xl mx-auto">
         <div className="flex animate-scroll-infinite">
