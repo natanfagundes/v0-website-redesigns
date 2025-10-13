@@ -1,7 +1,12 @@
 "use client"
 
+import type React from "react"
+
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Code2 } from "lucide-react"
 import { SectionBackground } from "@/components/section-background"
 
@@ -73,6 +78,57 @@ export function ServicesShowcase() {
   ]
 
   const [activeService, setActiveService] = useState(services[0])
+  const [formData, setFormData] = useState({
+    nome: "",
+    telefone: "",
+    email: "",
+    empresa: "",
+    servico: "",
+  })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }))
+  }
+
+  const handleServiceChange = (value: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      servico: value,
+    }))
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setSubmitStatus("idle")
+
+    try {
+      // TODO: Implement Google Sheets integration later
+      console.log("[v0] Form data:", formData)
+
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 1000))
+
+      setSubmitStatus("success")
+      setFormData({
+        nome: "",
+        telefone: "",
+        email: "",
+        empresa: "",
+        servico: "",
+      })
+    } catch (error) {
+      console.error("[v0] Form submission error:", error)
+      setSubmitStatus("error")
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
   return (
     <section id="services" className="py-24 md:py-32 relative overflow-hidden bg-background">
@@ -112,7 +168,7 @@ export function ServicesShowcase() {
         </div>
 
         {/* Service Content */}
-        <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto items-center">
+        <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto items-start">
           <div
             className="space-y-6 bg-card/50 backdrop-blur-sm p-8 rounded-2xl border-2 transition-colors duration-300"
             style={{
@@ -142,18 +198,108 @@ export function ServicesShowcase() {
           </div>
 
           <div
-            className="relative h-96 rounded-2xl overflow-hidden backdrop-blur-sm border-2 transition-all duration-300"
+            className="bg-card/50 backdrop-blur-sm p-8 rounded-2xl border-2 transition-colors duration-300"
             style={{
               borderColor: activeService.color === "red" ? "#8B1538" : "#1a2b4a",
-              background:
-                activeService.color === "red"
-                  ? "linear-gradient(to bottom right, rgba(139, 21, 56, 0.2), rgba(139, 21, 56, 0.05))"
-                  : "linear-gradient(to bottom right, rgba(26, 43, 74, 0.2), rgba(26, 43, 74, 0.05))",
             }}
           >
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-6xl opacity-20">📊</div>
-            </div>
+            <h3 className="text-2xl font-bold mb-6">Tenho Interesse</h3>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="nome">Nome</Label>
+                <Input
+                  id="nome"
+                  name="nome"
+                  type="text"
+                  placeholder="Seu nome completo"
+                  value={formData.nome}
+                  onChange={handleInputChange}
+                  required
+                  className="bg-background/50"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="telefone">Telefone</Label>
+                <Input
+                  id="telefone"
+                  name="telefone"
+                  type="tel"
+                  placeholder="(00) 00000-0000"
+                  value={formData.telefone}
+                  onChange={handleInputChange}
+                  required
+                  className="bg-background/50"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="email">E-mail</Label>
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="seu@email.com"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  required
+                  className="bg-background/50"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="empresa">Nome da Empresa</Label>
+                <Input
+                  id="empresa"
+                  name="empresa"
+                  type="text"
+                  placeholder="Sua empresa"
+                  value={formData.empresa}
+                  onChange={handleInputChange}
+                  required
+                  className="bg-background/50"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="servico">Qual serviço tem interesse?</Label>
+                <Select value={formData.servico} onValueChange={handleServiceChange} required>
+                  <SelectTrigger className="bg-background/50">
+                    <SelectValue placeholder="Selecione um serviço" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {services.map((service) => (
+                      <SelectItem key={service.id} value={service.id}>
+                        {service.title}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {submitStatus === "success" && (
+                <p className="text-sm text-green-600 dark:text-green-400">
+                  Mensagem enviada com sucesso! Entraremos em contato em breve.
+                </p>
+              )}
+
+              {submitStatus === "error" && (
+                <p className="text-sm text-red-600 dark:text-red-400">
+                  Erro ao enviar mensagem. Por favor, tente novamente.
+                </p>
+              )}
+
+              <Button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full transition-colors duration-300"
+                style={{
+                  backgroundColor: activeService.color === "red" ? "#8B1538" : "#1a2b4a",
+                }}
+              >
+                {isSubmitting ? "Enviando..." : "Enviar Interesse"}
+              </Button>
+            </form>
           </div>
         </div>
       </div>
