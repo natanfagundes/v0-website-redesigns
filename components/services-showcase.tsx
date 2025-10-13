@@ -314,9 +314,24 @@ export function ServicesShowcase() {
               </div>
 
               {submitStatus === "success" && (
-                <p className="text-sm text-green-600 dark:text-green-400">
-                  Mensagem enviada com sucesso! Entraremos em contato em breve.
-                </p>
+                <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-4 flex items-center gap-3">
+                  <div className="flex-shrink-0">
+                    <svg
+                      className="w-5 h-5 text-green-600 dark:text-green-400"
+                      fill="none"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path d="M5 13l4 4L19 7"></path>
+                    </svg>
+                  </div>
+                  <p className="text-sm font-medium text-green-800 dark:text-green-300">
+                    Mensagem enviada com sucesso! Entraremos em contato em breve.
+                  </p>
+                </div>
               )}
 
               <Button
