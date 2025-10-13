@@ -14,7 +14,7 @@ const playfair = Playfair_Display({
 })
 
 export const metadata: Metadata = {
-  title: "Ferreira & Cosseau | Marketing & Serviços de Alta Performance",
+  title: "Ferreira & Cousseau | Marketing & Serviços de Alta Performance",
   description: "Transformamos estratégias em resultados concretos com excelência e inovação",
   generator: "v0.app",
 }

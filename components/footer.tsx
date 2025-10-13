@@ -70,7 +70,7 @@ export function Footer() {
         </div>
 
         <div className="pt-8 border-t border-border text-center text-sm text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} Ferreira & Cosseau. Todos os direitos reservados.</p>
+          <p>&copy; {new Date().getFullYear()} Ferreira & Cousseau. Todos os direitos reservados.</p>
         </div>
       </div>
     </footer>

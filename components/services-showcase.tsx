@@ -42,6 +42,34 @@ export function ServicesShowcase() {
       description:
         "Automatize e personalize sua comunicação com precisão. Desenvolvemos estratégias de relacionamento inteligentes que fortalecem o vínculo entre marca e cliente, gerando engajamento, fidelização e aumento de conversões.",
     },
+    {
+      id: "trafego-pago",
+      title: "Tráfego Pago e Performance Digital",
+      color: "blue",
+      description:
+        "Conecte sua marca às pessoas certas com estratégias de mídia orientadas por dados. Planejamos, otimizamos e gerenciamos campanhas em Google Ads, Meta Ads, TikTok Ads, LinkedIn e Programática, sempre com foco em ROAS, conversão e crescimento sustentável. Cada clique é uma oportunidade — e nós garantimos que ela seja bem aproveitada.",
+    },
+    {
+      id: "social-media",
+      title: "Gestão Estratégica de Mídias Sociais",
+      color: "red",
+      description:
+        "Posicione sua marca com propósito e consistência. Desenvolvemos estratégias de conteúdo e calendário editorial que aumentam o engajamento, fortalecem a comunidade e traduzem a essência da marca em conversas autênticas e resultados reais. Mais do que curtidas — criamos relações de valor entre sua marca e o público.",
+    },
+    {
+      id: "ux",
+      title: "UX — Experiência do Usuário",
+      color: "blue",
+      description:
+        "Projetamos experiências digitais centradas nas pessoas. Combinamos pesquisa, dados e psicologia do consumidor para entender como seu público navega, decide e converte. O resultado são interfaces intuitivas e jornadas fluidas que aumentam retenção, satisfação e taxa de conversão.",
+    },
+    {
+      id: "ui",
+      title: "UI — Design de Interface",
+      color: "red",
+      description:
+        "Estética com propósito, design que converte. Criamos interfaces modernas, funcionais e alinhadas à identidade da marca, priorizando clareza, acessibilidade e impacto visual. Cada detalhe é pensado para guiar o usuário com naturalidade, fortalecendo a percepção de valor e a performance do seu negócio.",
+    },
   ]
 
   const [activeService, setActiveService] = useState(services[0])

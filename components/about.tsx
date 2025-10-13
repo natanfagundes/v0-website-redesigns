@@ -18,7 +18,7 @@ export function About() {
               <div className="space-y-6 text-lg leading-relaxed text-muted-foreground">
                 <ScrollReveal delay={100}>
                   <p>
-                    Na <span className="text-foreground font-semibold">Ferreira & Cosseau</span>, acreditamos que
+                    Na <span className="text-foreground font-semibold">Ferreira & Cousseau</span>, acreditamos que
                     marketing de alta performance vai além de números e métricas. É sobre criar conexões autênticas e
                     gerar valor real para nossos clientes.
                   </p>

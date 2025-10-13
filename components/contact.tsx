@@ -96,7 +96,7 @@ export function Contact() {
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">Email</h3>
-                    <p className="text-muted-foreground">contato@ferreiracosseau.com</p>
+                    <p className="text-muted-foreground">contato@ferreiracousseau.com</p>
                   </div>
                 </div>
 
