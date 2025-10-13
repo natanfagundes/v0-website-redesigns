@@ -17,10 +17,6 @@ export function Contact() {
     message: "",
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitStatus, setSubmitStatus] = useState<{
-    type: "success" | "error" | null
-    message: string
-  }>({ type: null, message: "" })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData((prev) => ({
@@ -32,7 +28,6 @@ export function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-    setSubmitStatus({ type: null, message: "" })
 
     try {
       const response = await fetch("/api/contact", {
@@ -46,10 +41,6 @@ export function Contact() {
       const data = await response.json()
 
       if (response.ok) {
-        setSubmitStatus({
-          type: "success",
-          message: data.message,
-        })
         // Limpar formulário
         setFormData({
           name: "",
@@ -57,17 +48,9 @@ export function Contact() {
           subject: "",
           message: "",
         })
-      } else {
-        setSubmitStatus({
-          type: "error",
-          message: data.error || "Erro ao enviar mensagem",
-        })
       }
     } catch (error) {
-      setSubmitStatus({
-        type: "error",
-        message: "Erro ao enviar mensagem. Tente novamente.",
-      })
+      console.error("Erro ao enviar mensagem. Tente novamente.", error)
     } finally {
       setIsSubmitting(false)
     }
@@ -172,18 +155,6 @@ export function Contact() {
                   required
                 />
               </div>
-
-              {submitStatus.type && (
-                <div
-                  className={`p-4 rounded-lg ${
-                    submitStatus.type === "success"
-                      ? "bg-green-500/10 text-green-500 border border-green-500/20"
-                      : "bg-red-500/10 text-red-500 border border-red-500/20"
-                  }`}
-                >
-                  {submitStatus.message}
-                </div>
-              )}
 
               <Button type="submit" size="lg" className="w-full bg-primary hover:bg-primary/90" disabled={isSubmitting}>
                 {isSubmitting ? "Enviando..." : "Enviar Mensagem"}

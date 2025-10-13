@@ -178,6 +178,20 @@
   animation: scroll-left 20s linear infinite;
 }
 
+/* Added infinite scroll animation for stats carousel */
+@keyframes scroll-infinite {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll-infinite {
+  animation: scroll-infinite 25s linear infinite;
+}
+
 /* Added blob animations for background elements */
 @keyframes blob {
   0%,

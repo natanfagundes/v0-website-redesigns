@@ -323,18 +323,6 @@ export function ServicesShowcase() {
                 </p>
               )}
 
-              {submitStatus === "error" && (
-                <div className="space-y-2">
-                  <p className="text-sm text-red-600 dark:text-red-400 font-semibold">⚠️ Erro ao enviar mensagem</p>
-                  <p className="text-xs text-red-600/80 dark:text-red-400/80">
-                    O Google Sheets ainda não foi configurado. Siga as instruções no arquivo{" "}
-                    <code className="bg-red-100 dark:bg-red-900/30 px-1 py-0.5 rounded">
-                      CONFIGURACAO_GOOGLE_SHEETS_PASSO_A_PASSO.md
-                    </code>
-                  </p>
-                </div>
-              )}
-
               <Button
                 type="submit"
                 disabled={isSubmitting || formData.servicos.length === 0}
