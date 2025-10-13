@@ -54,4 +54,39 @@
 }
 
 .metodo-card p {
-  fon
+  font-size: 0.95rem;
+  color: #222;
+  line-height: 1.6;
+}
+
+.resultado {
+  display: block;
+  font-weight: 600;
+  color: #000;
+  margin-top: 1rem;
+}
+
+/* 🌙 modo escuro */
+@media (prefers-color-scheme: dark) {
+  .metodo-wrapper {
+    background: linear-gradient(180deg, #1a0000 0%, #000 100%);
+    color: #f0f0f0;
+  }
+
+  .metodo-card {
+    background: rgba(25, 25, 25, 0.9);
+    border: 1px solid rgba(255, 0, 0, 0.2);
+  }
+
+  .metodo-card h3 {
+    color: #ff3333;
+  }
+
+  .metodo-card p {
+    color: #ddd;
+  }
+
+  .resultado {
+    color: #ff6666;
+  }
+}
