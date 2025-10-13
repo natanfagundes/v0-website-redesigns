@@ -14,7 +14,7 @@ export function AboutYasmim() {
           <div className="flex justify-center">
             <div className="relative w-80 h-80 rounded-2xl overflow-hidden shadow-2xl">
               <Image
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/yasmim.jpg-nWHgydDtiNqLHDTnp8FtcIbOItC2E4.jpeg"
+                src="/images/design-mode/yasmim.jpg.jpeg"
                 alt="Yasmim Ferreira"
                 fill
                 className="object-cover"
