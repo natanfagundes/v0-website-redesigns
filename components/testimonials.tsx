@@ -2,7 +2,7 @@
 
 import { Card } from "@/components/ui/card"
 import { Quote, ChevronLeft, ChevronRight } from "lucide-react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 
 const testimonials = [
@@ -60,6 +60,14 @@ export function Testimonials() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const itemsPerPage = 3
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + itemsPerPage >= testimonials.length ? 0 : prev + itemsPerPage))
+    }, 5000) // Change slide every 5 seconds
+
+    return () => clearInterval(interval)
+  }, [])
+
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev + itemsPerPage >= testimonials.length ? 0 : prev + itemsPerPage))
   }
@@ -70,7 +78,7 @@ export function Testimonials() {
     )
   }
 
-  const visibleTestimonials = testimonials.slice(currentIndex, currentIndex + itemsPerPage)
+  const totalPages = Math.ceil(testimonials.length / itemsPerPage)
 
   return (
     <section className="py-24 bg-gradient-to-b from-background to-muted/20 flex flex-col items-center">
@@ -86,12 +94,12 @@ export function Testimonials() {
           </p>
         </div>
 
-        <div className="relative max-w-7xl mx-auto">
+        <div className="relative max-w-7xl mx-auto px-12">
           {/* Navigation Buttons */}
           <Button
             variant="outline"
             size="icon"
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 rounded-full bg-background/80 backdrop-blur-sm hover:bg-background"
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 rounded-full bg-background/80 backdrop-blur-sm hover:bg-background"
             onClick={prevSlide}
             disabled={currentIndex === 0}
           >
@@ -101,23 +109,20 @@ export function Testimonials() {
           <Button
             variant="outline"
             size="icon"
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 rounded-full bg-background/80 backdrop-blur-sm hover:bg-background"
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 rounded-full bg-background/80 backdrop-blur-sm hover:bg-background"
             onClick={nextSlide}
             disabled={currentIndex + itemsPerPage >= testimonials.length}
           >
             <ChevronRight className="h-6 w-6" />
           </Button>
 
-          {/* Testimonials Carousel */}
-          <div className="overflow-hidden flex justify-center">
-            <div
-              className="flex transition-transform duration-500 ease-in-out gap-8"
-              style={{ transform: `translateX(-${(currentIndex / itemsPerPage) * 100}%)` }}
-            >
-              {testimonials.map((testimonial, index) => (
+          <div className="overflow-hidden">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 transition-all duration-700 ease-in-out">
+              {testimonials.slice(currentIndex, currentIndex + itemsPerPage).map((testimonial, index) => (
                 <Card
-                  key={index}
-                  className="flex-shrink-0 w-full md:w-[calc(33.333%-1.5rem)] p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-card border-border/50"
+                  key={currentIndex + index}
+                  className="p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-card border-border/50 animate-in fade-in slide-in-from-right-4"
+                  style={{ animationDelay: `${index * 100}ms` }}
                 >
                   {/* Quote Icon */}
                   <div className="mb-6">
@@ -151,7 +156,7 @@ export function Testimonials() {
           </div>
 
           <div className="flex justify-center gap-2 mt-8">
-            {Array.from({ length: Math.ceil(testimonials.length / itemsPerPage) }).map((_, index) => (
+            {Array.from({ length: totalPages }).map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentIndex(index * itemsPerPage)}
