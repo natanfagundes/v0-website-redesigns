@@ -21,7 +21,7 @@ export function ClientsCarousel() {
     { name: "Kaspersky", logo: "/kaspersky.png" },
   ]
 
-  const duplicatedClients = [...clients, ...clients]
+  const duplicatedClients = [...clients, ...clients, ...clients]
 
   return (
     <section className="py-16 bg-card border-y border-border overflow-hidden">
@@ -33,14 +33,14 @@ export function ClientsCarousel() {
           {duplicatedClients.map((client, index) => (
             <div
               key={`${client.name}-${index}`}
-              className="flex items-center justify-center px-8 flex-shrink-0 min-w-[200px] h-24 bg-background/50 rounded-lg mx-2"
+              className="flex items-center justify-center px-2 md:px-8 flex-shrink-0 min-w-[100px] md:min-w-[200px] h-14 md:h-24 bg-background/50 rounded-lg mx-1 md:mx-2"
             >
               <Image
                 src={client.logo || "/placeholder.svg"}
                 alt={`${client.name} logo`}
-                width={180}
-                height={80}
-                className="object-contain opacity-80 hover:opacity-100 transition-opacity dark:brightness-90"
+                width={120}
+                height={50}
+                className="object-contain opacity-80 hover:opacity-100 transition-opacity dark:brightness-90 w-full h-full p-1 md:p-2"
               />
             </div>
           ))}

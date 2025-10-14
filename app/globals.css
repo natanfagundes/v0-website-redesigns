@@ -189,7 +189,7 @@
 }
 
 .animate-scroll-infinite {
-  animation: scroll-infinite 25s linear infinite;
+  animation: scroll-infinite 15s linear infinite; /* Updated duration */
 }
 
 /* Added blob animations for background elements */

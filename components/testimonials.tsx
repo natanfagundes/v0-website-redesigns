@@ -1,7 +1,9 @@
 "use client"
 
 import { Card } from "@/components/ui/card"
-import { Quote } from "lucide-react"
+import { Quote, ChevronLeft, ChevronRight } from "lucide-react"
+import { useState } from "react"
+import { Button } from "@/components/ui/button"
 
 const testimonials = [
   {
@@ -55,6 +57,21 @@ const testimonials = [
 ]
 
 export function Testimonials() {
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const itemsPerPage = 3
+
+  const nextSlide = () => {
+    setCurrentIndex((prev) => (prev + itemsPerPage >= testimonials.length ? 0 : prev + itemsPerPage))
+  }
+
+  const prevSlide = () => {
+    setCurrentIndex((prev) =>
+      prev - itemsPerPage < 0 ? Math.max(0, testimonials.length - itemsPerPage) : prev - itemsPerPage,
+    )
+  }
+
+  const visibleTestimonials = testimonials.slice(currentIndex, currentIndex + itemsPerPage)
+
   return (
     <section className="py-24 bg-gradient-to-b from-background to-muted/20">
       <div className="container px-4 md:px-6">
@@ -69,55 +86,82 @@ export function Testimonials() {
           </p>
         </div>
 
-        {/* Testimonials Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, index) => (
-            <Card
-              key={index}
-              className="p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-card border-border/50"
+        <div className="relative max-w-7xl mx-auto">
+          {/* Navigation Buttons */}
+          <Button
+            variant="outline"
+            size="icon"
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 rounded-full bg-background/80 backdrop-blur-sm hover:bg-background"
+            onClick={prevSlide}
+            disabled={currentIndex === 0}
+          >
+            <ChevronLeft className="h-6 w-6" />
+          </Button>
+
+          <Button
+            variant="outline"
+            size="icon"
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 rounded-full bg-background/80 backdrop-blur-sm hover:bg-background"
+            onClick={nextSlide}
+            disabled={currentIndex + itemsPerPage >= testimonials.length}
+          >
+            <ChevronRight className="h-6 w-6" />
+          </Button>
+
+          {/* Testimonials Carousel */}
+          <div className="overflow-hidden">
+            <div
+              className="flex transition-transform duration-500 ease-in-out gap-8"
+              style={{ transform: `translateX(-${(currentIndex / itemsPerPage) * 100}%)` }}
             >
-              {/* Quote Icon */}
-              <div className="mb-6">
-                <Quote className="w-10 h-10 text-primary/20" />
-              </div>
+              {testimonials.map((testimonial, index) => (
+                <Card
+                  key={index}
+                  className="flex-shrink-0 w-full md:w-[calc(33.333%-1.5rem)] p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-card border-border/50"
+                >
+                  {/* Quote Icon */}
+                  <div className="mb-6">
+                    <Quote className="w-10 h-10 text-primary/20" />
+                  </div>
 
-              {/* Quote Text */}
-              <blockquote className="text-lg leading-relaxed mb-8 text-foreground/90">"{testimonial.quote}"</blockquote>
+                  {/* Quote Text */}
+                  <blockquote className="text-lg leading-relaxed mb-8 text-foreground/90">
+                    "{testimonial.quote}"
+                  </blockquote>
 
-              {/* Author Info */}
-              <div className="flex items-center gap-4 pt-6 border-t border-border/50">
-                <div className="flex-1">
-                  <div className="font-semibold text-foreground">{testimonial.author}</div>
-                  <div className="text-sm text-muted-foreground">{testimonial.role}</div>
-                  <div className="text-sm font-medium text-primary mt-1">{testimonial.company}</div>
-                </div>
-                {/* Company Logo */}
-                <div className="w-16 h-16 rounded-lg bg-muted/50 flex items-center justify-center overflow-hidden">
-                  <img
-                    src={testimonial.logo || "/placeholder.svg"}
-                    alt={`${testimonial.company} logo`}
-                    className="w-full h-full object-contain opacity-70 hover:opacity-100 transition-opacity"
-                  />
-                </div>
-              </div>
-            </Card>
-          ))}
-        </div>
+                  {/* Author Info */}
+                  <div className="flex items-center gap-4 pt-6 border-t border-border/50">
+                    <div className="flex-1">
+                      <div className="font-semibold text-foreground">{testimonial.author}</div>
+                      <div className="text-sm text-muted-foreground">{testimonial.role}</div>
+                      <div className="text-sm font-medium text-primary mt-1">{testimonial.company}</div>
+                    </div>
+                    {/* Company Logo */}
+                    <div className="w-16 h-16 rounded-lg bg-muted/50 flex items-center justify-center overflow-hidden">
+                      <img
+                        src={testimonial.logo || "/placeholder.svg"}
+                        alt={`${testimonial.company} logo`}
+                        className="w-full h-full object-contain opacity-70 hover:opacity-100 transition-opacity"
+                      />
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </div>
 
-        {/* Bottom CTA */}
-        <div className="text-center mt-16">
-          <p className="text-lg text-muted-foreground mb-6">
-            Junte-se a empresas que confiam em nossa expertise jurídica
-          </p>
-          <div className="flex flex-wrap justify-center gap-4 opacity-60">
-            {testimonials.slice(0, 6).map((t, i) => (
-              <div key={i} className="w-20 h-20 rounded-lg bg-muted/30 flex items-center justify-center">
-                <img
-                  src={t.logo || "/placeholder.svg"}
-                  alt={`${t.company} logo`}
-                  className="w-full h-full object-contain p-2"
-                />
-              </div>
+          <div className="flex justify-center gap-2 mt-8">
+            {Array.from({ length: Math.ceil(testimonials.length / itemsPerPage) }).map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentIndex(index * itemsPerPage)}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  Math.floor(currentIndex / itemsPerPage) === index
+                    ? "bg-primary w-8"
+                    : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
+                }`}
+                aria-label={`Go to slide ${index + 1}`}
+              />
             ))}
           </div>
         </div>

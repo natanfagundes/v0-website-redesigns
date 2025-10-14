@@ -108,60 +108,23 @@ export function ServicesShowcase() {
     setIsSubmitting(true)
     setSubmitStatus("idle")
 
-    const servicosTitles = formData.servicos.map(
-      (serviceId) => services.find((s) => s.id === serviceId)?.title || serviceId,
-    )
+    await new Promise((resolve) => setTimeout(resolve, 800))
 
-    console.log("[v0] Submitting form with data:", { ...formData, servicos: servicosTitles })
+    setSubmitStatus("success")
 
-    try {
-      const response = await fetch("/api/submit-lead", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...formData,
-          servicos: servicosTitles,
-        }),
-      })
+    setFormData({
+      nome: "",
+      telefone: "",
+      email: "",
+      empresa: "",
+      servicos: [],
+    })
 
-      console.log("[v0] Response status:", response.status)
+    setIsSubmitting(false)
 
-      const result = await response.json()
-      console.log("[v0] Response data:", result)
-
-      if (!response.ok) {
-        if (response.status === 500 && result.details?.includes("401")) {
-          throw new Error(
-            "Configuração do Google Sheets pendente. Consulte o arquivo CONFIGURACAO_GOOGLE_SHEETS_PASSO_A_PASSO.md para instruções detalhadas.",
-          )
-        }
-        throw new Error(result.details || result.error || "Falha ao enviar formulário")
-      }
-
-      setSubmitStatus("success")
-      setFormData({
-        nome: "",
-        telefone: "",
-        email: "",
-        empresa: "",
-        servicos: [],
-      })
-
-      setTimeout(() => {
-        setSubmitStatus("idle")
-      }, 5000)
-    } catch (error: any) {
-      console.error("[v0] Form submission error:", error.message)
-      setSubmitStatus("error")
-
-      setTimeout(() => {
-        setSubmitStatus("idle")
-      }, 5000)
-    } finally {
-      setIsSubmitting(false)
-    }
+    setTimeout(() => {
+      setSubmitStatus("idle")
+    }, 5000)
   }
 
   return (
@@ -171,7 +134,6 @@ export function ServicesShowcase() {
       <div className="container px-4 mx-auto max-w-7xl relative z-10">
         <div className="text-center mb-12 space-y-4">
           <p className="text-sm text-primary font-mono">{"{ SERVIÇOS }"}</p>
-          {/* Removed the Code2 icon from the title */}
           <h2 className="text-4xl md:text-6xl font-bold text-balance">ESTRATÉGIA, DADOS E CRIAÇÃO.</h2>
         </div>
 
@@ -200,6 +162,7 @@ export function ServicesShowcase() {
 
         {/* Service Content */}
         <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto items-start">
+          {/* Removed the button "SAIBA MAIS" from the service card */}
           <div
             className="space-y-6 bg-card/50 backdrop-blur-sm p-8 rounded-2xl border-2 transition-colors duration-300"
             style={{
@@ -214,18 +177,6 @@ export function ServicesShowcase() {
             </div>
             <h3 className="text-3xl font-bold uppercase">{activeService.title}</h3>
             <p className="text-muted-foreground leading-relaxed">{activeService.description}</p>
-            <Button
-              variant="outline"
-              className="group bg-transparent transition-colors duration-300"
-              style={{
-                borderColor: activeService.color === "red" ? "#8B1538" : "#1a2b4a",
-                color: activeService.color === "red" ? "#8B1538" : "#1a2b4a",
-              }}
-            >
-              <span className="mr-2">{"<<"}</span>
-              SAIBA MAIS
-              <span className="ml-2">{">>"}</span>
-            </Button>
           </div>
 
           <div
