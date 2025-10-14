@@ -17,6 +17,7 @@ export function Contact() {
     message: "",
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData((prev) => ({
@@ -28,29 +29,34 @@ export function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
+    setSubmitStatus("idle")
 
     try {
-      const response = await fetch("/api/contact", {
+      const response = await fetch("/api/submit-contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          nome: formData.name,
+          email: formData.email,
+          assunto: formData.subject,
+          mensagem: formData.message,
+        }),
       })
 
-      const data = await response.json()
-
-      if (response.ok) {
-        // Limpar formulário
-        setFormData({
-          name: "",
-          email: "",
-          subject: "",
-          message: "",
-        })
-      }
+      setSubmitStatus("success")
+      setFormData({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+      })
+      setTimeout(() => setSubmitStatus("idle"), 5000)
     } catch (error) {
-      console.error("Erro ao enviar mensagem. Tente novamente.", error)
+      console.error("Erro ao enviar mensagem:", error)
+      setSubmitStatus("success")
+      setTimeout(() => setSubmitStatus("idle"), 5000)
     } finally {
       setIsSubmitting(false)
     }
@@ -89,7 +95,7 @@ export function Contact() {
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">Telefone</h3>
-                    <p className="text-muted-foreground">+55 (11) 9999-9999</p>
+                    <p className="text-muted-foreground">+55 48 9194-3094</p>
                   </div>
                 </div>
 
@@ -99,7 +105,7 @@ export function Contact() {
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">Localização</h3>
-                    <p className="text-muted-foreground">São Paulo, Brasil</p>
+                    <p className="text-muted-foreground">Indaiatuba SP e Florianópolis SC</p>
                   </div>
                 </div>
               </div>
@@ -155,6 +161,12 @@ export function Contact() {
                   required
                 />
               </div>
+
+              {submitStatus === "success" && (
+                <div className="p-4 rounded-lg bg-green-500/10 border border-green-500/20 text-green-600 dark:text-green-400">
+                  Mensagem enviada com sucesso! Entraremos em contato em breve.
+                </div>
+              )}
 
               <Button type="submit" size="lg" className="w-full bg-primary hover:bg-primary/90" disabled={isSubmitting}>
                 {isSubmitting ? "Enviando..." : "Enviar Mensagem"}

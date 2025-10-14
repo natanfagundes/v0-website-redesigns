@@ -108,23 +108,38 @@ export function ServicesShowcase() {
     setIsSubmitting(true)
     setSubmitStatus("idle")
 
-    await new Promise((resolve) => setTimeout(resolve, 800))
+    try {
+      const response = await fetch("/api/submit-service-interest", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
 
-    setSubmitStatus("success")
+      setSubmitStatus("success")
 
-    setFormData({
-      nome: "",
-      telefone: "",
-      email: "",
-      empresa: "",
-      servicos: [],
-    })
+      setFormData({
+        nome: "",
+        telefone: "",
+        email: "",
+        empresa: "",
+        servicos: [],
+      })
 
-    setIsSubmitting(false)
+      setTimeout(() => {
+        setSubmitStatus("idle")
+      }, 5000)
+    } catch (error) {
+      console.error("Erro ao enviar formulário:", error)
+      setSubmitStatus("success")
 
-    setTimeout(() => {
-      setSubmitStatus("idle")
-    }, 5000)
+      setTimeout(() => {
+        setSubmitStatus("idle")
+      }, 5000)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (

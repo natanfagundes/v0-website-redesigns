@@ -14,14 +14,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Todos os campos são obrigatórios" }, { status: 400 })
     }
 
-    const scriptUrl = process.env.GOOGLE_SCRIPT_URL
+    const scriptUrl =
+      "https://script.google.com/macros/s/AKfycbzhFx2PJ5qFZGYRT9nrpISxf4ZLuk6-SvGFIhTxJ-S03Fvg7CYQaBtGt4ReX7_j34Fr/exec"
 
-    if (!scriptUrl) {
-      console.error("[v0] GOOGLE_SCRIPT_URL not configured")
-      return NextResponse.json({ error: "Configuração do Google Sheets não encontrada" }, { status: 500 })
-    }
-
-    console.log("[v0] Using Google Script URL from environment variable")
+    console.log("[v0] Using contact form Google Script URL")
 
     const payload = {
       nome,
