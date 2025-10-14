@@ -73,11 +73,11 @@ export function Testimonials() {
   const visibleTestimonials = testimonials.slice(currentIndex, currentIndex + itemsPerPage)
 
   return (
-    <section className="py-24 bg-gradient-to-b from-background to-muted/20">
+    <section className="py-24 bg-gradient-to-b from-background to-muted/20 flex flex-col items-center">
       <div className="container px-4 md:px-6">
         {/* Header */}
         <div className="text-center mb-16 space-y-4">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4 mx-auto">
             <Quote className="w-8 h-8 text-primary" />
           </div>
           <h2 className="text-4xl md:text-5xl font-bold tracking-tight">O Que Nossos Clientes Dizem</h2>
@@ -109,7 +109,7 @@ export function Testimonials() {
           </Button>
 
           {/* Testimonials Carousel */}
-          <div className="overflow-hidden">
+          <div className="overflow-hidden flex justify-center">
             <div
               className="flex transition-transform duration-500 ease-in-out gap-8"
               style={{ transform: `translateX(-${(currentIndex / itemsPerPage) * 100}%)` }}

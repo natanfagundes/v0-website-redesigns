@@ -76,37 +76,73 @@ export function MethodSection() {
           </p>
         </div>
 
-        {/* Steps Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto place-items-center">
-          {steps.map((step, index) => (
-            <Card
-              key={index}
-              className="bg-white/10 backdrop-blur-sm border-white/20 p-6 hover:bg-white/15 transition-all duration-300 hover:scale-105 hover:shadow-xl w-full max-w-md"
-            >
-              {/* Step number and icon */}
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-5xl">{step.icon}</span>
-                <span className="text-sm font-mono text-white/60">Etapa {step.number}</span>
-              </div>
+        {/* Steps Grid - 3 cards em cima, 2 centralizados embaixo */}
+        <div className="w-full max-w-7xl mx-auto">
+          {/* Primeira linha - 3 cards */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6 justify-items-center">
+            {steps.slice(0, 3).map((step, index) => (
+              <Card
+                key={index}
+                className="bg-white/10 backdrop-blur-sm border-white/20 p-6 hover:bg-white/15 transition-all duration-300 hover:scale-105 hover:shadow-xl w-full max-w-md"
+              >
+                {/* Step number and icon */}
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-5xl">{step.icon}</span>
+                  <span className="text-sm font-mono text-white/60">Etapa {step.number}</span>
+                </div>
 
-              {/* Title */}
-              <h3 className="text-2xl font-bold text-white mb-3">{step.title}</h3>
+                {/* Title */}
+                <h3 className="text-2xl font-bold text-white mb-3">{step.title}</h3>
 
-              {/* Description */}
-              <p className="text-white/80 text-sm leading-relaxed mb-4">{step.description}</p>
+                {/* Description */}
+                <p className="text-white/80 text-sm leading-relaxed mb-4">{step.description}</p>
 
-              {/* Result */}
-              <div className="pt-4 border-t border-white/20">
-                <div className="flex items-start gap-2">
-                  <span className="text-xl flex-shrink-0">{step.resultIcon}</span>
-                  <div>
-                    <p className="text-xs font-semibold text-white/60 mb-1">Resultado esperado:</p>
-                    <p className="text-sm text-white/90 font-medium">{step.result}</p>
+                {/* Result */}
+                <div className="pt-4 border-t border-white/20">
+                  <div className="flex items-start gap-2">
+                    <span className="text-xl flex-shrink-0">{step.resultIcon}</span>
+                    <div>
+                      <p className="text-xs font-semibold text-white/60 mb-1">Resultado esperado:</p>
+                      <p className="text-sm text-white/90 font-medium">{step.result}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </Card>
-          ))}
+              </Card>
+            ))}
+          </div>
+
+          {/* Segunda linha - 2 cards centralizados */}
+          <div className="flex flex-wrap justify-center gap-6">
+            {steps.slice(3, 5).map((step, index) => (
+              <Card
+                key={index + 3}
+                className="bg-white/10 backdrop-blur-sm border-white/20 p-6 hover:bg-white/15 transition-all duration-300 hover:scale-105 hover:shadow-xl w-full max-w-md"
+              >
+                {/* Step number and icon */}
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-5xl">{step.icon}</span>
+                  <span className="text-sm font-mono text-white/60">Etapa {step.number}</span>
+                </div>
+
+                {/* Title */}
+                <h3 className="text-2xl font-bold text-white mb-3">{step.title}</h3>
+
+                {/* Description */}
+                <p className="text-white/80 text-sm leading-relaxed mb-4">{step.description}</p>
+
+                {/* Result */}
+                <div className="pt-4 border-t border-white/20">
+                  <div className="flex items-start gap-2">
+                    <span className="text-xl flex-shrink-0">{step.resultIcon}</span>
+                    <div>
+                      <p className="text-xs font-semibold text-white/60 mb-1">Resultado esperado:</p>
+                      <p className="text-sm text-white/90 font-medium">{step.result}</p>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            ))}
+          </div>
         </div>
       </div>
     </section>
